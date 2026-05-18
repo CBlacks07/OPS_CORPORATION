@@ -12,8 +12,9 @@ export default function ConstellationField({density=0.00012, maxSpeed=0.3, linkD
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
     const canvas: HTMLCanvasElement = canvasEl;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const ctxEl = canvas.getContext('2d');
+    if (!ctxEl) return;
+    const ctx: CanvasRenderingContext2D = ctxEl;
 
     let raf = 0;
     const dpr = Math.max(1, window.devicePixelRatio || 1);
