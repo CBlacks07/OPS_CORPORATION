@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "skills": "Skills",
+    "projects": "Projects",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Caringthon Kossi Maathey",
+    "status": "Open for missions",
+    "role_line1": "Systems & Network",
+    "role_line2": "Administrator - Full-Stack Developer",
+    "pitch": "I secure, automate, and optimize systems and networks, and I build modern, maintainable web applications."
+  },
+  "cta": {
+    "cv": "Download CV",
+    "contact": "Contact me"
+  },
+  "skills": {
+    "title": "Core skills",
+    "subtitle": "Dual focus on systems/networks and web development, with reliability and security in mind.",
+    "sysnet": "Systems & Networks",
+    "fullstack": "Full-Stack Development",
+    "sysnet_items": {
+      "admin_os": "Windows / Linux (Administration)",
+      "networking": "LAN / WAN / VLAN / Routing",
+      "security": "Security / SOC / Monitoring",
+      "virtualization": "Virtualization (VMware, VirtualBox)",
+      "automation": "Automation (Bash, Python)"
+    },
+    "fullstack_items": {
+      "ts": "TypeScript / JavaScript",
+      "frontend": "React / Next.js (App Router)",
+      "databases": "PostgreSQL / MySQL / MongoDB / Prisma",
+      "backend": "Node.js / Express / NestJS",
+      "auth": "Auth / RBAC / OWASP basics",
+      "ui": "Tailwind / shadcn/ui / Framer Motion",
+      "devops": "Docker / CI/CD / NGINX"
+    }
+  },
+  "projects": {
+    "title": "Projects & case studies",
+    "subtitle": "A curated selection that spans networks, monitoring, and web applications.",
+    "items": {
+      "soc": {
+        "tag": "Security",
+        "title": "Mini-SOC & monitoring",
+        "desc": "Set up a mini-SOC, centralized event collection, and incident handling to improve visibility and MTTR."
+      },
+      "backbone": {
+        "tag": "Networking",
+        "title": "Local backbone and relays",
+        "desc": "Multi-site secure network rollout with relays and logical segmentation of flows (QoS / VLAN)."
+      },
+      "portal": {
+        "tag": "Web apps",
+        "title": "Web portals (Next.js)",
+        "desc": "Built a client portal and back-office with a Node API, authentication and roles, and a modern UI."
+      }
+    }
+  },
+  "services": {
+    "title": "OPS CORPORATION services",
+    "subtitle": "End-to-end support: audit, deployment, and ongoing operations.",
+    "items": {
+      "managed": {
+        "title": "Managed services & support",
+        "desc": "Monitoring, updates, backups, and end-user support."
+      },
+      "deployment": {
+        "title": "Deployment & monitoring",
+        "desc": "Server and network setup, observability, and alerting."
+      },
+      "security": {
+        "title": "Security & SOC",
+        "desc": "Hardening, best practices, incident response, and baseline audits."
+      },
+      "webapps": {
+        "title": "Custom web apps",
+        "desc": "Modern interfaces, robust APIs, and reliable databases."
+      }
+    }
+  },
+  "contact": {
+    "title": "Let's work together",
+    "pitch": "Tell me about your needs - I'll get back to you quickly."
+  },
+  "footer": {
+    "text": "Powered by OPS CORPORATION"
+  }
+}

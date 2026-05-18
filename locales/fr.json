@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "skills": "Compétences",
+    "projects": "Projets",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Caringthon Kossi Maathey",
+    "status": "Disponible pour missions",
+    "role_line1": "Administrateur Systèmes &",
+    "role_line2": "Réseaux - Développeur Full-Stack",
+    "pitch": "Je sécurise, j'automatise et j'optimise vos systèmes et réseaux, et je conçois des applications web modernes, performantes et maintenables."
+  },
+  "cta": {
+    "cv": "Télécharger le CV",
+    "contact": "Me contacter"
+  },
+  "skills": {
+    "title": "Compétences clés",
+    "subtitle": "Double expertise systèmes/réseaux et développement web, orientée fiabilité et sécurité.",
+    "sysnet": "Systèmes & Réseaux",
+    "fullstack": "Développement Full-Stack",
+    "sysnet_items": {
+      "admin_os": "Windows / Linux (Administration)",
+      "networking": "LAN / WAN / VLAN / Routage",
+      "security": "Sécurité / SOC / Supervision",
+      "virtualization": "Virtualisation (VMware, VirtualBox)",
+      "automation": "Automatisation (Bash, Python)"
+    },
+    "fullstack_items": {
+      "ts": "TypeScript / JavaScript",
+      "frontend": "React / Next.js (App Router)",
+      "databases": "PostgreSQL / MySQL / MongoDB / Prisma",
+      "backend": "Node.js / Express / NestJS",
+      "auth": "Auth / RBAC / bases OWASP",
+      "ui": "Tailwind / shadcn/ui / Framer Motion",
+      "devops": "Docker / CI/CD / NGINX"
+    }
+  },
+  "projects": {
+    "title": "Projets & cas d'usage",
+    "subtitle": "Une sélection de livrables représentatifs, du réseau à la supervision et aux applications.",
+    "items": {
+      "soc": {
+        "tag": "Sécurité",
+        "title": "Mini-SOC & supervision",
+        "desc": "Mise en place d'un mini-SOC, collecte d'événements et gestion d'incidents pour améliorer la visibilité et réduire le MTTR."
+      },
+      "backbone": {
+        "tag": "Réseau",
+        "title": "Backbone local et relais",
+        "desc": "Déploiement réseau sécurisé multi-sites avec relais et segmentation logique des flux (QoS / VLAN)."
+      },
+      "portal": {
+        "tag": "Applications web",
+        "title": "Portails web (Next.js)",
+        "desc": "Conception d'un portail client et back-office avec API Node, authentification et rôles, UI moderne."
+      }
+    }
+  },
+  "services": {
+    "title": "Services OPS CORPORATION",
+    "subtitle": "Accompagnement de bout en bout : audit, déploiement, maintien en condition opérationnelle.",
+    "items": {
+      "managed": {
+        "title": "Infogérance & support",
+        "desc": "Supervision, mises à jour, sauvegardes et support utilisateur."
+      },
+      "deployment": {
+        "title": "Déploiement & monitoring",
+        "desc": "Installation de serveurs, réseaux, observabilité et alerting."
+      },
+      "security": {
+        "title": "Sécurisation & SOC",
+        "desc": "Renforcement, bonnes pratiques, gestion d'incidents et audits de base."
+      },
+      "webapps": {
+        "title": "Apps web sur mesure",
+        "desc": "Conception d'interfaces modernes, APIs robustes et bases de données."
+      }
+    }
+  },
+  "contact": {
+    "title": "Travaillons ensemble",
+    "pitch": "Parlez-moi de votre besoin - je reviens vers vous rapidement."
+  },
+  "footer": {
+    "text": "Propulsé par OPS CORPORATION"
+  }
+}
