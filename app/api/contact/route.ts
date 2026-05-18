@@ -7,7 +7,7 @@ type ContactPayload = {
   message?: string;
 };
 
-const CONTACT_TO = process.env.CONTACT_TO || 'cmaathey@gmail.com';
+const CONTACT_TO = process.env.CONTACT_TO || '';
 const CONTACT_FROM = process.env.CONTACT_FROM || 'onboarding@resend.dev';
 
 export async function POST(req: Request) {

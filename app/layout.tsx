@@ -18,7 +18,7 @@ const space = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: 'OPS CORPORATION - Portfolio',
-  description: 'Portfolio de Caringthon Kossi - Administrateur Systèmes & Réseaux, Développeur Full-Stack',
+  description: 'OPS CORPORATION — Infra, Sécurité, Applications web sur mesure.',
   openGraph: {
     title: 'OPS CORPORATION - Portfolio',
     description: 'Infra - Sécurité - Applications web',

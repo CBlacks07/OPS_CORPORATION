@@ -16,7 +16,7 @@ npm run dev
 ## Personnalisation rapide
 - Liens GitHub/LinkedIn dans `app/[locale]/page.tsx` (const `SOCIALS`).
 - Projets & services dans `locales/fr.json` et `locales/en.json`.
-- `public/ops-logo.png` (logo), `public/CV-Caringthon_Kossi_Maathey.pdf` (CV).
+- `public/ops-logo.png` (logo OPS CORPORATION).
 
 ## Deploiement
 - Vercel recommande, ou `npm run build && npm start` derriere NGINX.

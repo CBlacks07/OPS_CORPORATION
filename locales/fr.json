@@ -6,15 +6,13 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Caringthon Kossi",
     "status": "Disponible pour missions",
-    "role_line1": "Administrateur Systèmes &",
-    "role_line2": "Réseaux - Développeur Full-Stack",
+    "role_line1": "Infra · Sécurité ·",
+    "role_line2": "Applications web sur mesure",
     "pitch": "Je sécurise, j'automatise et j'optimise vos systèmes et réseaux, et je conçois des applications web modernes, performantes et maintenables."
   },
   "cta": {
-    "cv": "Télécharger le CV",
-    "contact": "Me contacter"
+    "contact": "Nous contacter"
   },
   "skills": {
     "title": "Compétences clés",

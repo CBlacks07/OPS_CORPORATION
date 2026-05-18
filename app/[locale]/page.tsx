@@ -1,7 +1,7 @@
 'use client';
 
 import {useTranslations} from 'next-intl';
-import { Cpu, Server, Network, Shield, Code2, Boxes, Database, Terminal, Download, Mail, MoveRight, Github, Linkedin } from 'lucide-react';
+import { Cpu, Server, Network, Shield, Code2, Boxes, Database, Terminal, Mail, MoveRight, Github, Linkedin } from 'lucide-react';
 import ConstellationBG from '@/components/ConstellationBG';
 import {useParams} from 'next/navigation';
 
@@ -18,8 +18,6 @@ const SOCIALS = {
   github: 'https://github.com',
   linkedin: 'https://www.linkedin.com'
 };
-
-const CV_URL = '/CV-Caringthon_Kossi.pdf';
 
 const SYSNET_SKILLS = [
   { icon: <Server className="w-5 h-5" />, key: 'admin_os' },
@@ -90,8 +88,7 @@ export default function Page() {
                 {t('hero.status')}
               </div>
               <h1 className="text-2xl md:text-4xl font-extrabold leading-tight">
-                <AnimatedText text={t('hero.title')} per="word" />
-                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-400 glitch leading-[1.05] tracking-tight">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-300 via-sky-400 to-blue-400 glitch leading-[1.05] tracking-tight">
                   <span className="block">
                     <AnimatedText text={t('hero.role_line1')} per="char" delay={0.2} />
                   </span>
@@ -102,11 +99,11 @@ export default function Page() {
               </h1>
               <p className="mt-5 text-slate-300 max-w-xl motion-smooth">{t('hero.pitch')}</p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
-                <MagneticButton as="a" href={CV_URL} download>
-                  <Download className="w-4 h-4" /> {t('cta.cv')}
+                <MagneticButton as="a" href="#contact">
+                  <Mail className="w-4 h-4" /> {t('cta.contact')}
                 </MagneticButton>
-                <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 font-medium border border-cyan-500/30 bg-cyan-900/30 hover:bg-cyan-900/50 text-cyan-200">
-                  {t('cta.contact')} <MoveRight className="w-4 h-4" />
+                <a href="#services" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 font-medium border border-cyan-500/30 bg-cyan-900/30 hover:bg-cyan-900/50 text-cyan-200">
+                  Nos services <MoveRight className="w-4 h-4" />
                 </a>
               </div>
               <div className="mt-6 flex items-center gap-4 text-slate-400">
