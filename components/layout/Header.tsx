@@ -71,7 +71,7 @@ export default function Header({labels, locale, switchHref, socials}:{labels:Lab
             animate={{opacity:1}}
             exit={{opacity:0}}
             transition={{duration:0.15}}
-            className="fixed inset-0 z-30 bg-black/40"
+            className="fixed inset-0 z-30 bg-black/70"
             onClick={()=>setOpen(false)}
           />
         )}
@@ -85,7 +85,8 @@ export default function Header({labels, locale, switchHref, socials}:{labels:Lab
             animate={{x: 0}}
             exit={{x: '100%'}}
             transition={{type:'spring', stiffness: 260, damping: 28}}
-            className="fixed right-0 top-0 bottom-0 z-40 w-[84%] max-w-sm bg-[#0B1220] border-l border-white/10 p-6 flex flex-col gap-6"
+            className="fixed right-0 top-0 bottom-0 z-40 w-[84%] max-w-sm bg-[#07090F] border-l border-white/10 p-6 flex flex-col gap-6"
+            style={{backgroundColor: '#07090F'}}
             aria-label="Mobile"
           >
             <div className="flex items-center justify-between">
