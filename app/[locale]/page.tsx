@@ -115,6 +115,15 @@ export default function Page() {
         {/* Background glows */}
         <div className="absolute -top-40 -right-60 w-[700px] h-[700px] rounded-full bg-cyan-500/[0.04] blur-[140px] pointer-events-none" />
         <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-500/[0.05] blur-[120px] pointer-events-none" />
+        {/* Logo watermark */}
+        <div className="absolute right-0 bottom-0 pointer-events-none select-none" aria-hidden>
+          <img
+            src="/ops-logo.png"
+            alt=""
+            className="w-[420px] md:w-[600px] lg:w-[720px] object-contain opacity-[0.04]"
+            style={{filter: 'grayscale(1) brightness(3)'}}
+          />
+        </div>
 
         <div className={`${container} relative z-10 py-28`}>
           <Reveal>
