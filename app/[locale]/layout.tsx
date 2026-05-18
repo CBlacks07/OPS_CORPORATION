@@ -14,7 +14,7 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: 'fr' | 'en'}>;
+  params: Promise<{locale: string}>;
 }) {
   const {locale} = await params;
   const messages = locale === 'fr' ? fr : en;

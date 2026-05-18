@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import {Languages, Github, Linkedin} from 'lucide-react';
+import {Languages, GitBranch, Globe} from 'lucide-react';
 import {useState} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import useLockBodyScroll from '@/components/hooks/useLockBodyScroll';
@@ -40,12 +40,12 @@ export default function Header({labels, locale, switchHref, socials}:{labels:Lab
             </Link>
             {socials.github && (
               <a href={socials.github} aria-label="GitHub" className="text-slate-300 hover:text-white" target="_blank" rel="noreferrer">
-                <Github className="w-5 h-5"/>
+                <GitBranch className="w-5 h-5"/>
               </a>
             )}
             {socials.linkedin && (
               <a href={socials.linkedin} aria-label="LinkedIn" className="text-slate-300 hover:text-white" target="_blank" rel="noreferrer">
-                <Linkedin className="w-5 h-5"/>
+                <Globe className="w-5 h-5"/>
               </a>
             )}
           </div>
@@ -106,12 +106,12 @@ export default function Header({labels, locale, switchHref, socials}:{labels:Lab
             <div className="mt-auto flex items-center gap-4 text-slate-300">
               {socials.github && (
                 <a href={socials.github} aria-label="GitHub" className="hover:text-white" target="_blank" rel="noreferrer">
-                  <Github className="w-5 h-5"/>
+                  <GitBranch className="w-5 h-5"/>
                 </a>
               )}
               {socials.linkedin && (
                 <a href={socials.linkedin} aria-label="LinkedIn" className="hover:text-white" target="_blank" rel="noreferrer">
-                  <Linkedin className="w-5 h-5"/>
+                  <Globe className="w-5 h-5"/>
                 </a>
               )}
             </div>
