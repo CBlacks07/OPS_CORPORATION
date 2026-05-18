@@ -19,7 +19,7 @@ const SOCIALS = {
   linkedin: 'https://www.linkedin.com'
 };
 
-const CV_URL = '/CV-Caringthon_Kossi_Maathey.pdf';
+const CV_URL = '/CV-Caringthon_Kossi.pdf';
 
 const SYSNET_SKILLS = [
   { icon: <Server className="w-5 h-5" />, key: 'admin_os' },
