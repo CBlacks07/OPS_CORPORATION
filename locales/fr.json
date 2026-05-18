@@ -7,9 +7,9 @@
   },
   "hero": {
     "status": "Disponible pour missions",
-    "headline1": "Nous construisons vos",
-    "headline2": "fondations digitales.",
-    "pitch": "OPS CORPORATION conçoit, déploie et sécurise vos infrastructures et applications web — de la couche réseau à l'interface utilisateur."
+    "headline1": "L'IT de confiance",
+    "headline2": "pour votre business.",
+    "pitch": "OPS CORPORATION sécurise vos infrastructures, déploie vos réseaux et conçoit vos applications web — avec rigueur, réactivité et expertise locale à Lomé."
   },
   "stats": {
     "years_label": "ans d'expertise",
@@ -19,12 +19,30 @@
   },
   "cta": {
     "contact": "Nous contacter",
-    "services": "Nos services"
+    "services": "Nos services",
+    "reach": "Prendre contact"
+  },
+  "whyus": {
+    "label": "Nos Atouts",
+    "headline1": "Pourquoi choisir",
+    "headline2": "OPS CORPORATION ?",
+    "reactive": {
+      "title": "Réactivité",
+      "desc": "Temps de réponse maîtrisé, support disponible. Vos incidents sont traités rapidement, vos projets ne s'arrêtent pas."
+    },
+    "expertise": {
+      "title": "Double expertise",
+      "desc": "Infrastructure IT et développement web dans une seule équipe. Moins d'interlocuteurs, plus de cohérence, plus d'efficacité."
+    },
+    "local": {
+      "title": "Ancrage local",
+      "desc": "Basés à Lomé, nous intervenons sur site au Togo et accompagnons vos projets à distance partout en Afrique et au-delà."
+    }
   },
   "skills": {
     "label": "Expertise Technique",
     "title": "Compétences clés",
-    "subtitle": "Double expertise systèmes / réseaux et développement web, orientée fiabilité et sécurité.",
+    "subtitle": "Double expertise systèmes / réseaux et développement web, orientée fiabilité, sécurité et performance.",
     "sysnet": "Systèmes & Réseaux",
     "fullstack": "Développement Full-Stack"
   },
@@ -35,17 +53,17 @@
       "soc": {
         "tag": "Sécurité",
         "title": "Mini-SOC & supervision",
-        "desc": "Mise en place d'un mini-SOC, collecte d'événements et gestion d'incidents pour améliorer la visibilité et réduire le MTTR."
+        "desc": "Mise en place d'un mini-SOC avec collecte centralisée d'événements, corrélation d'alertes et gestion d'incidents pour réduire le MTTR."
       },
       "backbone": {
         "tag": "Réseau",
-        "title": "Backbone local et relais",
-        "desc": "Déploiement réseau sécurisé multi-sites avec relais et segmentation logique des flux (QoS / VLAN)."
+        "title": "Backbone multi-sites",
+        "desc": "Déploiement réseau sécurisé multi-sites avec relais, segmentation logique des flux (QoS / VLAN) et supervision continue."
       },
       "portal": {
-        "tag": "Applications web",
-        "title": "Portails web (Next.js)",
-        "desc": "Conception d'un portail client et back-office avec API Node, authentification et rôles, UI moderne."
+        "tag": "Application web",
+        "title": "Portail client Next.js",
+        "desc": "Portail client et back-office avec API Node.js, authentification RBAC, tableaux de bord et interface moderne."
       }
     }
   },
@@ -56,29 +74,29 @@
     "items": {
       "managed": {
         "title": "Infogérance & support",
-        "desc": "Supervision proactive, maintenance et support utilisateur pour que vos systèmes restent disponibles et performants.",
+        "desc": "Supervision proactive, maintenance planifiée et support utilisateur pour garantir la disponibilité et la performance de vos systèmes.",
         "f1": "Supervision 24/7 & alerting",
         "f2": "Mises à jour & patches de sécurité",
         "f3": "Support utilisateurs réactif"
       },
       "deployment": {
         "title": "Déploiement & monitoring",
-        "desc": "Installation, configuration et observabilité de vos infrastructures serveurs et réseaux.",
+        "desc": "Installation, configuration et observabilité complète de vos infrastructures serveurs, réseaux et cloud.",
         "f1": "Installation serveurs & réseaux",
         "f2": "Monitoring temps réel & dashboards",
         "f3": "Documentation & runbooks"
       },
       "security": {
         "title": "Sécurisation & SOC",
-        "desc": "Renforcement de vos défenses, détection des menaces et réponse aux incidents de sécurité.",
+        "desc": "Audit, renforcement de vos défenses, détection proactive des menaces et réponse structurée aux incidents.",
         "f1": "Audit de sécurité & conformité",
-        "f2": "Gestion proactive des incidents",
+        "f2": "Détection & gestion des incidents",
         "f3": "Contrôle des accès & RBAC"
       },
       "webapps": {
-        "title": "Apps web sur mesure",
-        "desc": "Applications modernes, performantes et maintenables — de l'API à l'interface utilisateur.",
-        "f1": "Interfaces modernes React / Next.js",
+        "title": "Applications web sur mesure",
+        "desc": "Conception d'applications modernes, performantes et maintenables — de l'API REST à l'interface utilisateur.",
+        "f1": "Interfaces React / Next.js",
         "f2": "APIs robustes & microservices",
         "f3": "CI/CD & déploiement continu"
       }
@@ -87,11 +105,12 @@
   "contact": {
     "label": "Contact",
     "title": "Parlons de votre projet.",
-    "pitch": "Décrivez votre besoin — nous revenons vers vous sous 24h avec une proposition adaptée.",
-    "info_email": "contact@opscorporation.fr",
+    "pitch": "Décrivez votre besoin — nous revenons vers vous sous 24h avec une proposition concrète et adaptée.",
+    "info_email": "contact@opscorporation.com",
     "info_location": "Lomé, Togo · Remote"
   },
   "footer": {
-    "text": "© 2026 OPS CORPORATION. Tous droits réservés."
+    "text": "© 2026 OPS CORPORATION. Tous droits réservés.",
+    "tagline": "Infra · Sécurité · Applications web"
   }
 }

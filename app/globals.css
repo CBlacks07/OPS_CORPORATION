@@ -2,6 +2,8 @@
 
 :root { color-scheme: dark; }
 
+html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   background: #07090F;
