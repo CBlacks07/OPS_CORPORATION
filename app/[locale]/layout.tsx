@@ -1,6 +1,5 @@
 ﻿import type {Metadata} from 'next';
 import {NextIntlClientProvider} from 'next-intl';
-import '../globals.css';
 import fr from '@/locales/fr.json';
 import en from '@/locales/en.json';
 
