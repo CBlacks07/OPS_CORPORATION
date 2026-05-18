@@ -9,8 +9,9 @@ export default function ConstellationField({density=0.00012, maxSpeed=0.3, linkD
   const prefersReduce = usePrefersReducedMotion();
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvasEl = canvasRef.current;
+    if (!canvasEl) return;
+    const canvas: HTMLCanvasElement = canvasEl;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
