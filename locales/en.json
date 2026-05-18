@@ -1,44 +1,36 @@
 {
   "nav": {
-    "skills": "Skills",
-    "projects": "Projects",
+    "skills": "Expertise",
+    "projects": "Work",
     "services": "Services",
     "contact": "Contact"
   },
   "hero": {
     "status": "Open for missions",
-    "role_line1": "Infra · Security ·",
-    "role_line2": "Custom Web Applications",
-    "pitch": "I secure, automate, and optimize systems and networks, and I build modern, maintainable web applications."
+    "headline1": "We build your",
+    "headline2": "digital foundations.",
+    "pitch": "OPS CORPORATION designs, deploys, and secures your infrastructure and web applications — from the network layer to the user interface."
+  },
+  "stats": {
+    "years_label": "years of expertise",
+    "missions_label": "missions completed",
+    "uptime_label": "guaranteed uptime",
+    "support_label": "reactive support"
   },
   "cta": {
-    "contact": "Contact us"
+    "contact": "Contact us",
+    "services": "Our services"
   },
   "skills": {
+    "label": "Technical Expertise",
     "title": "Core skills",
-    "subtitle": "Dual focus on systems/networks and web development, with reliability and security in mind.",
+    "subtitle": "Dual focus on systems / networks and web development, with reliability and security in mind.",
     "sysnet": "Systems & Networks",
-    "fullstack": "Full-Stack Development",
-    "sysnet_items": {
-      "admin_os": "Windows / Linux (Administration)",
-      "networking": "LAN / WAN / VLAN / Routing",
-      "security": "Security / SOC / Monitoring",
-      "virtualization": "Virtualization (VMware, VirtualBox)",
-      "automation": "Automation (Bash, Python)"
-    },
-    "fullstack_items": {
-      "ts": "TypeScript / JavaScript",
-      "frontend": "React / Next.js (App Router)",
-      "databases": "PostgreSQL / MySQL / MongoDB / Prisma",
-      "backend": "Node.js / Express / NestJS",
-      "auth": "Auth / RBAC / OWASP basics",
-      "ui": "Tailwind / shadcn/ui / Framer Motion",
-      "devops": "Docker / CI/CD / NGINX"
-    }
+    "fullstack": "Full-Stack Development"
   },
   "projects": {
+    "label": "Work",
     "title": "Projects & case studies",
-    "subtitle": "A curated selection that spans networks, monitoring, and web applications.",
     "items": {
       "soc": {
         "tag": "Security",
@@ -58,32 +50,48 @@
     }
   },
   "services": {
-    "title": "OPS CORPORATION services",
-    "subtitle": "End-to-end support: audit, deployment, and ongoing operations.",
+    "label": "Our Services",
+    "headline1": "Full-stack expertise,",
+    "headline2": "measurable results.",
     "items": {
       "managed": {
         "title": "Managed services & support",
-        "desc": "Monitoring, updates, backups, and end-user support."
+        "desc": "Proactive monitoring, maintenance, and user support to keep your systems available and performing.",
+        "f1": "24/7 monitoring & alerting",
+        "f2": "Updates & security patching",
+        "f3": "Responsive end-user support"
       },
       "deployment": {
         "title": "Deployment & monitoring",
-        "desc": "Server and network setup, observability, and alerting."
+        "desc": "Installation, configuration, and observability for your server and network infrastructure.",
+        "f1": "Server & network setup",
+        "f2": "Real-time monitoring & dashboards",
+        "f3": "Documentation & runbooks"
       },
       "security": {
         "title": "Security & SOC",
-        "desc": "Hardening, best practices, incident response, and baseline audits."
+        "desc": "Strengthen your defenses, detect threats, and respond to security incidents effectively.",
+        "f1": "Security audit & compliance",
+        "f2": "Proactive incident management",
+        "f3": "Access control & RBAC"
       },
       "webapps": {
         "title": "Custom web apps",
-        "desc": "Modern interfaces, robust APIs, and reliable databases."
+        "desc": "Modern, performant, and maintainable applications — from API to user interface.",
+        "f1": "Modern React / Next.js interfaces",
+        "f2": "Robust APIs & microservices",
+        "f3": "CI/CD & continuous deployment"
       }
     }
   },
   "contact": {
-    "title": "Let's work together",
-    "pitch": "Tell me about your needs - I'll get back to you quickly."
+    "label": "Contact",
+    "title": "Let's talk about your project.",
+    "pitch": "Describe your need — we'll get back to you within 24 hours with a tailored proposal.",
+    "info_email": "contact@opscorporation.fr",
+    "info_location": "France · Remote"
   },
   "footer": {
-    "text": "Powered by OPS CORPORATION"
+    "text": "© 2026 OPS CORPORATION. All rights reserved."
   }
 }

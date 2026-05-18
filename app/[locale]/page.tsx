@@ -1,269 +1,405 @@
 'use client';
 
-import {useTranslations} from 'next-intl';
-import { Cpu, Server, Network, Shield, Code2, Boxes, Database, Terminal, Mail, MoveRight, Github, Linkedin } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Server, Network, Shield, Code2, Mail, MoveRight, CheckCircle2, MapPin } from 'lucide-react';
 import ConstellationBG from '@/components/ConstellationBG';
-import {useParams} from 'next/navigation';
-
-import AnimatedText from '@/components/motion/AnimatedText';
+import { useParams } from 'next/navigation';
 import Reveal from '@/components/motion/Reveal';
 import MagneticButton from '@/components/ui/MagneticButton';
-import TiltCard from '@/components/ui/TiltCard';
-import ParallaxGrid from '@/components/bg/ParallaxGrid';
-import ConstellationField from '@/components/bg/ConstellationField';
 import ScrollProgress from '@/components/ScrollProgress';
 import Header from '@/components/layout/Header';
 
 const SOCIALS = {
-  github: 'https://github.com',
-  linkedin: 'https://www.linkedin.com'
+  github: 'https://github.com/CBlacks07',
+  linkedin: 'https://www.linkedin.com',
 };
 
+const SERVICES = [
+  {
+    key: 'managed',
+    icon: <Server className="w-6 h-6" />,
+    iconClass: 'text-cyan-300 bg-cyan-500/10',
+    hoverBorder: 'hover:border-cyan-500/25',
+    hoverShadow: 'hover:shadow-[0_12px_48px_rgba(6,182,212,0.1)]',
+    features: ['f1', 'f2', 'f3'],
+  },
+  {
+    key: 'deployment',
+    icon: <Network className="w-6 h-6" />,
+    iconClass: 'text-blue-300 bg-blue-500/10',
+    hoverBorder: 'hover:border-blue-500/25',
+    hoverShadow: 'hover:shadow-[0_12px_48px_rgba(59,130,246,0.1)]',
+    features: ['f1', 'f2', 'f3'],
+  },
+  {
+    key: 'security',
+    icon: <Shield className="w-6 h-6" />,
+    iconClass: 'text-violet-300 bg-violet-500/10',
+    hoverBorder: 'hover:border-violet-500/25',
+    hoverShadow: 'hover:shadow-[0_12px_48px_rgba(139,92,246,0.1)]',
+    features: ['f1', 'f2', 'f3'],
+  },
+  {
+    key: 'webapps',
+    icon: <Code2 className="w-6 h-6" />,
+    iconClass: 'text-emerald-300 bg-emerald-500/10',
+    hoverBorder: 'hover:border-emerald-500/25',
+    hoverShadow: 'hover:shadow-[0_12px_48px_rgba(16,185,129,0.1)]',
+    features: ['f1', 'f2', 'f3'],
+  },
+];
+
 const SYSNET_SKILLS = [
-  { icon: <Server className="w-5 h-5" />, key: 'admin_os' },
-  { icon: <Network className="w-5 h-5" />, key: 'networking' },
-  { icon: <Shield className="w-5 h-5" />, key: 'security' },
-  { icon: <Cpu className="w-5 h-5" />, key: 'virtualization' },
-  { icon: <Terminal className="w-5 h-5" />, key: 'automation' },
+  'Windows / Linux', 'LAN / WAN / VLAN', 'Sécurité / SOC',
+  'VMware / VirtualBox', 'Bash / Python', 'NGINX / Firewalls',
 ];
 
 const FULLSTACK_SKILLS = [
-  { icon: <Code2 className="w-5 h-5" />, key: 'ts' },
-  { icon: <Boxes className="w-5 h-5" />, key: 'frontend' },
-  { icon: <Database className="w-5 h-5" />, key: 'databases' },
-  { icon: <Server className="w-5 h-5" />, key: 'backend' },
-  { icon: <Shield className="w-5 h-5" />, key: 'auth' },
-  { icon: <Terminal className="w-5 h-5" />, key: 'ui' },
-  { icon: <Boxes className="w-5 h-5" />, key: 'devops' },
+  'TypeScript / JavaScript', 'React / Next.js', 'Node.js / NestJS',
+  'PostgreSQL / MongoDB', 'Docker / CI/CD', 'Tailwind / Framer Motion',
 ];
 
 const PROJECTS = [
-  { key: 'soc', stack: ['Linux', 'Syslog', 'Dashboards', 'Alerting'] },
-  { key: 'backbone', stack: ['LAN/WAN', 'VLAN', 'Routing', 'Monitoring'] },
-  { key: 'portal', stack: ['Next.js', 'Node', 'PostgreSQL', 'Tailwind'] },
+  {
+    key: 'soc',
+    stack: ['Linux', 'Syslog', 'Dashboards', 'Alerting'],
+    tagClass: 'text-violet-300 border-violet-500/30 bg-violet-500/10',
+    dotClass: 'bg-violet-400',
+  },
+  {
+    key: 'backbone',
+    stack: ['LAN/WAN', 'VLAN', 'Routing', 'Monitoring'],
+    tagClass: 'text-blue-300 border-blue-500/30 bg-blue-500/10',
+    dotClass: 'bg-blue-400',
+  },
+  {
+    key: 'portal',
+    stack: ['Next.js', 'Node', 'PostgreSQL', 'Tailwind'],
+    tagClass: 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
+    dotClass: 'bg-emerald-400',
+  },
 ];
 
-const SERVICES = [
-  { key: 'managed', icon: <Server className="w-5 h-5" /> },
-  { key: 'deployment', icon: <Network className="w-5 h-5" /> },
-  { key: 'security', icon: <Shield className="w-5 h-5" /> },
-  { key: 'webapps', icon: <Code2 className="w-5 h-5" /> },
+const STATS = [
+  { value: '5+', labelKey: 'years_label' },
+  { value: '50+', labelKey: 'missions_label' },
+  { value: '99.9%', labelKey: 'uptime_label' },
+  { value: '24/7', labelKey: 'support_label' },
 ];
 
-function SectionHeader({title, subtitle}:{title: string; subtitle?: string}) {
-  return (
-    <div className="mb-8">
-      <h2 className="text-2xl md:text-3xl font-semibold text-slate-100">{title}</h2>
-      {subtitle && <p className="mt-2 text-slate-300 max-w-2xl">{subtitle}</p>}
-    </div>
-  );
+function SectionLabel({ text }: { text: string }) {
+  return <div className="section-label">{text}</div>;
 }
 
 export default function Page() {
   const t = useTranslations();
-  const {locale} = useParams<{locale: string}>();
-  const container = "mx-auto w-full max-w-screen-2xl px-6 md:px-10";
+  const { locale } = useParams<{ locale: string }>();
+  const isFr = String(locale) === 'fr';
+  const container = 'mx-auto w-full max-w-6xl px-6 md:px-12';
 
   return (
     <div className="min-h-screen relative">
       <ScrollProgress />
       <ConstellationBG />
-      <ParallaxGrid />
-      <ConstellationField />
       <div className="noise-overlay" />
 
       <Header
-        labels={{skills: t('nav.skills'), projects: t('nav.projects'), services: t('nav.services'), contact: t('nav.contact')}}
+        labels={{ skills: t('nav.skills'), projects: t('nav.projects'), services: t('nav.services'), contact: t('nav.contact') }}
         locale={String(locale)}
-        switchHref={String(locale) === 'fr' ? '/en' : '/fr'}
+        switchHref={isFr ? '/en' : '/fr'}
         socials={SOCIALS}
       />
 
-      <section className="relative">
-        <div className={`${container} py-20`}>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200 shadow-[0_0_18px_rgba(16,185,129,0.15)]">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                {t('hero.status')}
-              </div>
-              <h1 className="text-2xl md:text-4xl font-extrabold leading-tight">
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-300 via-sky-400 to-blue-400 glitch leading-[1.05] tracking-tight">
-                  <span className="block">
-                    <AnimatedText text={t('hero.role_line1')} per="char" delay={0.2} />
-                  </span>
-                  <span className="block">
-                    <AnimatedText text={t('hero.role_line2')} per="char" delay={0.2} />
-                  </span>
-                </span>
-              </h1>
-              <p className="mt-5 text-slate-300 max-w-xl motion-smooth">{t('hero.pitch')}</p>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <MagneticButton as="a" href="#contact">
-                  <Mail className="w-4 h-4" /> {t('cta.contact')}
-                </MagneticButton>
-                <a href="#services" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 font-medium border border-cyan-500/30 bg-cyan-900/30 hover:bg-cyan-900/50 text-cyan-200">
-                  Nos services <MoveRight className="w-4 h-4" />
-                </a>
-              </div>
-              <div className="mt-6 flex items-center gap-4 text-slate-400">
-                {SOCIALS.github && (
-                  <a href={SOCIALS.github} className="hover:text-white inline-flex items-center gap-2" target="_blank" rel="noreferrer">
-                    <Github className="w-4 h-4" /> GitHub
-                  </a>
-                )}
-                {SOCIALS.linkedin && (
-                  <a href={SOCIALS.linkedin} className="hover:text-white inline-flex items-center gap-2" target="_blank" rel="noreferrer">
-                    <Linkedin className="w-4 h-4" /> LinkedIn
-                  </a>
-                )}
-              </div>
-            </Reveal>
+      {/* ── HERO ── */}
+      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+        {/* Background glows */}
+        <div className="absolute -top-40 -right-60 w-[700px] h-[700px] rounded-full bg-cyan-500/[0.04] blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-500/[0.05] blur-[120px] pointer-events-none" />
 
-            <Reveal y={10} delay={0.1}>
-              <div className="relative rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                <div className="flex items-center gap-4">
-                  <img src="/ops-logo.png" alt="OPS Logo" className="h-16 w-16 object-contain" />
-                  <div>
-                    <p className="text-cyan-300 font-semibold">OPS CORPORATION</p>
-                    <p className="text-slate-300 text-sm">Infra - Sécurité - Applications web</p>
-                  </div>
+        <div className={`${container} relative z-10 py-28`}>
+          <Reveal>
+            {/* Status badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/[0.08] px-3 py-1 text-xs font-semibold text-emerald-300 mb-8 tracking-wide">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {t('hero.status')}
+            </div>
+
+            {/* Eyebrow */}
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-slate-500 mb-5">
+              OPS CORPORATION
+            </p>
+
+            {/* Main headline */}
+            <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.02] tracking-tight mb-6">
+              <span className="block text-slate-100">{t('hero.headline1')}</span>
+              <span className="block gradient-text-animate">{t('hero.headline2')}</span>
+            </h1>
+
+            <p className="text-base md:text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed">
+              {t('hero.pitch')}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 mb-20">
+              <MagneticButton as="a" href="#contact">
+                <Mail className="w-4 h-4" />
+                {t('cta.contact')}
+              </MagneticButton>
+              <a
+                href="#services"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold border border-white/10 text-slate-300 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all"
+              >
+                {t('cta.services')}
+                <MoveRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-white/[0.06] pt-10">
+              {STATS.map((s, i) => (
+                <div key={s.labelKey} className={`pr-8 ${i > 0 ? 'pl-8 border-l border-white/[0.06]' : ''}`}>
+                  <p className="text-3xl md:text-4xl font-bold text-slate-100 tracking-tight">{s.value}</p>
+                  <p className="text-xs text-slate-500 mt-1.5 font-medium tracking-wide">{t(`stats.${s.labelKey}`)}</p>
                 </div>
-                <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
-                  <div className="space-y-2">
-                    {SYSNET_SKILLS.map((s, i) => (
-                      <div key={i} className="flex items-center gap-2 text-slate-200/90">
-                        <span className="text-cyan-300">{s.icon}</span>
-                        {t(`skills.sysnet_items.${s.key}`)}
-                      </div>
-                    ))}
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section id="services" className="relative py-28">
+        <div className={`${container} relative z-10`}>
+          <Reveal>
+            <SectionLabel text={t('services.label')} />
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-100 leading-[1.1] mb-1">
+              {t('services.headline1')}
+            </h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold gradient-text leading-[1.1] mb-14">
+              {t('services.headline2')}
+            </h2>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.key} delay={i * 0.07}>
+                <div className={`service-card group ${s.hoverBorder} ${s.hoverShadow}`}>
+                  {/* Icon */}
+                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${s.iconClass} mb-6`}>
+                    {s.icon}
                   </div>
-                  <div className="space-y-2">
-                    {FULLSTACK_SKILLS.slice(0, 4).map((s, i) => (
-                      <div key={i} className="flex items-center gap-2 text-slate-200/90">
-                        <span className="text-cyan-300">{s.icon}</span>
-                        {t(`skills.fullstack_items.${s.key}`)}
-                      </div>
+
+                  <h3 className="text-xl font-bold text-slate-100 mb-2">
+                    {t(`services.items.${s.key}.title`)}
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed mb-7">
+                    {t(`services.items.${s.key}.desc`)}
+                  </p>
+
+                  <ul className="space-y-3 border-t border-white/[0.06] pt-6">
+                    {s.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-sm text-slate-300">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                        {t(`services.items.${s.key}.${f}`)}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="skills" className="relative py-20">
-        <div className={container}>
+      {/* ── EXPERTISE ── */}
+      <section id="skills" className="relative py-28 border-t border-white/[0.05]">
+        <div className={`${container} relative z-10`}>
           <Reveal>
-            <SectionHeader title={t('skills.title')} subtitle={t('skills.subtitle')} />
-            <div className="grid md:grid-cols-2 gap-6">
-              <TiltCard>
-                <h3 className="text-lg font-semibold text-cyan-200 mb-4">{t('skills.sysnet')}</h3>
-                <ul className="space-y-2 text-slate-200/90">
-                  {SYSNET_SKILLS.map((s, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="text-cyan-300">{s.icon}</span>{t(`skills.sysnet_items.${s.key}`)}
-                    </li>
+            <SectionLabel text={t('skills.label')} />
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-100 mb-3">
+              {t('skills.title')}
+            </h2>
+            <p className="text-slate-400 mb-12 max-w-2xl leading-relaxed">
+              {t('skills.subtitle')}
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-10">
+              <div>
+                <p className="text-xs font-bold tracking-[0.15em] uppercase text-cyan-400 mb-5">
+                  {t('skills.sysnet')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {SYSNET_SKILLS.map((skill) => (
+                    <span key={skill} className="skill-badge hover:border-cyan-500/30 hover:text-cyan-200 hover:bg-cyan-500/5">
+                      {skill}
+                    </span>
                   ))}
-                </ul>
-              </TiltCard>
-              <TiltCard>
-                <h3 className="text-lg font-semibold text-cyan-200 mb-4">{t('skills.fullstack')}</h3>
-                <ul className="space-y-2 text-slate-200/90">
-                  {FULLSTACK_SKILLS.map((s, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="text-cyan-300">{s.icon}</span>{t(`skills.fullstack_items.${s.key}`)}
-                    </li>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold tracking-[0.15em] uppercase text-indigo-400 mb-5">
+                  {t('skills.fullstack')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {FULLSTACK_SKILLS.map((skill) => (
+                    <span key={skill} className="skill-badge hover:border-indigo-500/30 hover:text-indigo-200 hover:bg-indigo-500/5">
+                      {skill}
+                    </span>
                   ))}
-                </ul>
-              </TiltCard>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section id="projects" className="relative py-20">
-        <div className={container}>
+      {/* ── PROJECTS ── */}
+      <section id="projects" className="relative py-28 border-t border-white/[0.05]">
+        <div className={`${container} relative z-10`}>
           <Reveal>
-            <SectionHeader title={t('projects.title')} subtitle={t('projects.subtitle')} />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <SectionLabel text={t('projects.label')} />
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-100 mb-12">
+              {t('projects.title')}
+            </h2>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {PROJECTS.map((p, idx) => (
-                <TiltCard key={idx}>
-                  <div className="text-xs uppercase tracking-widest text-cyan-300/80">{t(`projects.items.${p.key}.tag`)}</div>
-                  <h4 className="mt-2 font-semibold text-slate-100">{t(`projects.items.${p.key}.title`)}</h4>
-                  <p className="mt-2 text-sm text-slate-300">{t(`projects.items.${p.key}.desc`)}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7 hover:border-white/[0.13] hover:bg-white/[0.04] transition-all duration-300 group"
+                >
+                  <span className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full border ${p.tagClass}`}>
+                    <span className={`h-1.5 w-1.5 rounded-full ${p.dotClass}`} />
+                    {t(`projects.items.${p.key}.tag`)}
+                  </span>
+                  <h4 className="mt-5 text-lg font-bold text-slate-100 leading-snug">
+                    {t(`projects.items.${p.key}.title`)}
+                  </h4>
+                  <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+                    {t(`projects.items.${p.key}.desc`)}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
                     {p.stack.map((s, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-full text-xs bg-cyan-900/40 border border-cyan-500/30 text-cyan-200">{s}</span>
+                      <span key={i} className="px-2.5 py-1 rounded-full text-xs border border-white/[0.08] bg-white/[0.03] text-slate-400 font-mono">
+                        {s}
+                      </span>
                     ))}
                   </div>
-                </TiltCard>
+                </div>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section id="services" className="relative py-20">
-        <div className={container}>
+      {/* ── CONTACT ── */}
+      <section id="contact" className="relative py-28 border-t border-white/[0.05]">
+        {/* Background glow */}
+        <div className="absolute bottom-0 right-0 w-[500px] h-[400px] rounded-full bg-cyan-500/[0.04] blur-[120px] pointer-events-none" />
+
+        <div className={`${container} relative z-10`}>
           <Reveal>
-            <SectionHeader title={t('services.title')} subtitle={t('services.subtitle')} />
-            <div className="grid md:grid-cols-2 gap-6">
-              {SERVICES.map((s, i) => (
-                <TiltCard key={i}>
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-2xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center">
-                      {s.icon}
+            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-start">
+              {/* Left: info */}
+              <div>
+                <SectionLabel text={t('contact.label')} />
+                <h2 className="text-3xl md:text-5xl font-extrabold text-slate-100 leading-tight mb-6">
+                  {t('contact.title')}
+                </h2>
+                <p className="text-slate-400 text-base leading-relaxed mb-10">
+                  {t('contact.pitch')}
+                </p>
+                <div className="space-y-5">
+                  <a
+                    href={`mailto:${t('contact.info_email')}`}
+                    className="flex items-center gap-4 text-slate-300 hover:text-cyan-300 transition-colors group"
+                  >
+                    <div className="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/15 transition-colors">
+                      <Mail className="w-4 h-4" />
                     </div>
-                    <h4 className="font-semibold text-cyan-200">{t(`services.items.${s.key}.title`)}</h4>
+                    <span className="text-sm font-medium">{t('contact.info_email')}</span>
+                  </a>
+                  <div className="flex items-center gap-4 text-slate-400">
+                    <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm font-medium">{t('contact.info_location')}</span>
                   </div>
-                  <p className="mt-3 text-slate-300 text-sm">{t(`services.items.${s.key}.desc`)}</p>
-                </TiltCard>
-              ))}
+                </div>
+              </div>
+
+              {/* Right: form */}
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget as HTMLFormElement;
+                  const data = Object.fromEntries(new FormData(form).entries());
+                  try {
+                    const r = await fetch('/api/contact', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(data),
+                    });
+                    if (r.ok) alert(isFr ? 'Merci ! Votre message a bien été envoyé.' : 'Thanks! Your message has been sent.');
+                    else alert('Error');
+                    form.reset();
+                  } catch (_) {
+                    alert('Network error');
+                  }
+                }}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    name="name"
+                    className="form-input"
+                    placeholder={isFr ? 'Nom' : 'Name'}
+                    required
+                  />
+                  <input
+                    name="email"
+                    type="email"
+                    className="form-input"
+                    placeholder="Email"
+                    required
+                  />
+                </div>
+                <input
+                  name="subject"
+                  className="form-input"
+                  placeholder={isFr ? 'Sujet' : 'Subject'}
+                />
+                <textarea
+                  name="message"
+                  rows={5}
+                  className="form-input resize-none"
+                  placeholder={isFr ? 'Décrivez votre projet...' : 'Describe your project...'}
+                />
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-bold bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-900 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  {t('cta.contact')}
+                </button>
+              </form>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section id="contact" className="relative py-20">
-        <div className={container}>
-          <Reveal>
-            <SectionHeader title={t('contact.title')} subtitle={t('contact.pitch')} />
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const form = e.currentTarget as HTMLFormElement;
-                const data = Object.fromEntries(new FormData(form).entries());
-                try {
-                  const r = await fetch('/api/contact', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
-                  if (r.ok) alert(String(locale) === 'fr' ? 'Merci ! Votre message a bien été envoyé.' : 'Thanks! Your message has been sent.');
-                  else alert('Error');
-                  form.reset();
-                } catch (_) {
-                  alert('Network error');
-                }
-              }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 grid md:grid-cols-2 gap-4"
-            >
-              <div className="space-y-4">
-                <input name="name" className="w-full rounded-xl bg-[#0F172A] border border-white/10 px-4 py-2.5 outline-none focus:border-cyan-400" placeholder={String(locale) === 'fr' ? 'Nom' : 'Name'} required />
-                <input name="email" type="email" className="w-full rounded-xl bg-[#0F172A] border border-white/10 px-4 py-2.5 outline-none focus:border-cyan-400" placeholder="Email" required />
-                <input name="subject" className="w-full rounded-xl bg-[#0F172A] border border-white/10 px-4 py-2.5 outline-none focus:border-cyan-400" placeholder={String(locale) === 'fr' ? 'Sujet' : 'Subject'} />
-              </div>
-              <div className="space-y-4">
-                <textarea name="message" className="w-full h-[138px] rounded-xl bg-[#0F172A] border border-white/10 px-4 py-2.5 outline-none focus:border-cyan-400" placeholder={String(locale) === 'fr' ? 'Message' : 'Message'} />
-                <button type="submit" className="inline-flex items-center justify-center gap-2 w-full rounded-2xl px-4 py-2.5 font-medium bg-cyan-500/90 hover:bg-cyan-400 text-slate-900">
-                  <Mail className="w-4 h-4" /> {t('cta.contact')}
-                </button>
-              </div>
-            </form>
-          </Reveal>
+      {/* ── FOOTER ── */}
+      <footer className="py-8 border-t border-white/[0.05]">
+        <div className={`${container} flex flex-col sm:flex-row items-center justify-between gap-4`}>
+          <div className="flex items-center gap-3">
+            <img src="/ops-logo.png" alt="OPS CORPORATION" className="h-6 w-6 object-contain opacity-60" />
+            <p className="text-sm text-slate-500">{t('footer.text')}</p>
+          </div>
+          <div className="flex items-center gap-6 text-sm text-slate-500">
+            <a href={SOCIALS.github} className="hover:text-slate-300 transition-colors" target="_blank" rel="noreferrer">GitHub</a>
+            <a href={SOCIALS.linkedin} className="hover:text-slate-300 transition-colors" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-      </section>
-
-      <footer className="py-10 text-center text-sm text-slate-400 border-t border-white/5">
-        {t('footer.text')}
       </footer>
     </div>
   );
