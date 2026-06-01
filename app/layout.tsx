@@ -17,8 +17,12 @@ const space = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'OPS CORPORATION - Portfolio',
+  title: 'OPS CORPORATION',
   description: 'OPS CORPORATION — Infra, Sécurité, Applications web sur mesure.',
+  icons: {
+    icon: '/ops-logo.png',
+    apple: '/ops-logo.png',
+  },
   openGraph: {
     title: 'OPS CORPORATION - Portfolio',
     description: 'Infra - Sécurité - Applications web',
