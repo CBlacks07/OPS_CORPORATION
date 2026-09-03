@@ -4,8 +4,8 @@ import fr from '@/locales/fr.json';
 import en from '@/locales/en.json';
 
 export const metadata: Metadata = {
-  title: 'OPS CORPORATION - Portfolio',
-  description: 'Infra - Sécurité - Applications web'
+  title: 'OPS CORPORATION — Lomé, Togo',
+  description: 'Infrastructure, sécurité, applications web & mobiles sur mesure.'
 };
 
 export default async function LocaleLayout({

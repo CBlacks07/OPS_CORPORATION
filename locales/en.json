@@ -1,116 +1,87 @@
 {
   "nav": {
-    "skills": "Expertise",
-    "projects": "Work",
+    "home": "Home",
     "services": "Services",
+    "about": "About",
+    "projects": "Work",
     "contact": "Contact"
   },
   "hero": {
-    "status": "Open for missions",
-    "headline1": "Trusted IT partner",
-    "headline2": "for your business.",
-    "pitch": "OPS CORPORATION secures your infrastructure, deploys your networks, and builds your web applications — with rigor, responsiveness, and local expertise in Lomé."
-  },
-  "stats": {
-    "years_label": "years of expertise",
-    "missions_label": "missions completed",
-    "uptime_label": "guaranteed uptime",
-    "support_label": "reactive support"
+    "badge": "IT & digital studio based in Lomé"
   },
   "cta": {
     "contact": "Contact us",
     "services": "Our services",
-    "reach": "Get in touch"
+    "reach": "Let's talk",
+    "viewSite": "View site",
+    "seeAllProjects": "See all projects",
+    "seeAllServices": "See all services",
+    "sendMessage": "Send message"
+  },
+  "home": {
+    "servicesLabel": "Our Services",
+    "servicesHeadline1": "Full expertise,",
+    "servicesHeadline2": "measurable results.",
+    "sectorsLabel": "Industries",
+    "sectorsHeadline1": "Solutions tailored",
+    "sectorsHeadline2": "to your sector.",
+    "whyusLabel": "Why Us",
+    "whyusHeadline1": "Why choose",
+    "whyusHeadline2": "OPS CORPORATION?",
+    "projectsLabel": "Work",
+    "projectsHeadline": "Some recent projects",
+    "contactLabel": "Contact",
+    "contactHeadline": "Have a project in mind?",
+    "contactPitch": "Tell us about your needs — we'll get back to you quickly with a concrete proposal."
   },
   "whyus": {
-    "label": "Why Us",
-    "headline1": "Why choose",
-    "headline2": "OPS CORPORATION?",
     "reactive": {
       "title": "Responsiveness",
-      "desc": "Controlled response times and available support. Your incidents are handled quickly — your projects keep moving."
+      "desc": "Controlled response times, support available. Your incidents are handled quickly, your projects don't stall."
     },
     "expertise": {
       "title": "Dual expertise",
-      "desc": "IT infrastructure and web development in a single team. Fewer contacts, more coherence, more efficiency."
+      "desc": "IT infrastructure, web and mobile development in one team. Fewer contacts, more consistency."
     },
     "local": {
-      "title": "Local presence",
-      "desc": "Based in Lomé, we operate on-site in Togo and support your projects remotely across Africa and beyond."
-    }
-  },
-  "skills": {
-    "label": "Technical Expertise",
-    "title": "Core skills",
-    "subtitle": "Dual focus on systems / networks and web development, with reliability, security, and performance in mind.",
-    "sysnet": "Systems & Networks",
-    "fullstack": "Full-Stack Development"
-  },
-  "projects": {
-    "label": "Work",
-    "title": "Projects & case studies",
-    "items": {
-      "soc": {
-        "tag": "Security",
-        "title": "Mini-SOC & monitoring",
-        "desc": "Set up a mini-SOC with centralized event collection, alert correlation, and incident management to reduce MTTR."
-      },
-      "backbone": {
-        "tag": "Networking",
-        "title": "Multi-site backbone",
-        "desc": "Secure multi-site network rollout with relays, logical flow segmentation (QoS / VLAN), and continuous monitoring."
-      },
-      "portal": {
-        "tag": "Web app",
-        "title": "Next.js client portal",
-        "desc": "Client portal and back-office with Node.js API, RBAC authentication, dashboards, and a modern interface."
-      }
+      "title": "Local roots",
+      "desc": "Based in Lomé, we work on-site across Togo and support projects remotely across Africa and beyond."
     }
   },
   "services": {
     "label": "Our Services",
-    "headline1": "Full-stack expertise,",
-    "headline2": "measurable results.",
-    "items": {
-      "managed": {
-        "title": "Managed services & support",
-        "desc": "Proactive monitoring, scheduled maintenance, and user support to ensure the availability and performance of your systems.",
-        "f1": "24/7 monitoring & alerting",
-        "f2": "Updates & security patching",
-        "f3": "Responsive end-user support"
-      },
-      "deployment": {
-        "title": "Deployment & monitoring",
-        "desc": "Full installation, configuration, and observability of your server, network, and cloud infrastructure.",
-        "f1": "Server & network setup",
-        "f2": "Real-time monitoring & dashboards",
-        "f3": "Documentation & runbooks"
-      },
-      "security": {
-        "title": "Security & SOC",
-        "desc": "Audit, defense hardening, proactive threat detection, and structured incident response.",
-        "f1": "Security audit & compliance",
-        "f2": "Threat detection & incident response",
-        "f3": "Access control & RBAC"
-      },
-      "webapps": {
-        "title": "Custom web applications",
-        "desc": "Modern, performant, and maintainable applications — from REST API to user interface.",
-        "f1": "React / Next.js interfaces",
-        "f2": "Robust APIs & microservices",
-        "f3": "CI/CD & continuous deployment"
-      }
-    }
+    "headline1": "What we do",
+    "headline2": "for your organization.",
+    "pitch": "Dual expertise in infrastructure/security and web & mobile development, serving your projects."
+  },
+  "about": {
+    "label": "About",
+    "headline1": "Who we are",
+    "headline2": "at OPS CORPORATION",
+    "historyLabel": "Our story",
+    "valuesLabel": "Our values",
+    "teamLabel": "Our team",
+    "teamHeadline": "The people behind your projects",
+    "statsLabel": "By the numbers"
+  },
+  "projects": {
+    "label": "Work",
+    "headline1": "Real projects,",
+    "headline2": "satisfied clients.",
+    "pitch": "A look at sites and applications delivered for clinics, businesses, NGOs and institutions."
   },
   "contact": {
     "label": "Contact",
     "title": "Let's talk about your project.",
-    "pitch": "Describe your need — we'll get back to you within 24 hours with a concrete, tailored proposal.",
-    "info_email": "contact@opscorporation.com",
-    "info_location": "Lomé, Togo · Remote"
+    "pitch": "Describe your needs — we'll get back to you within 24h with a concrete, tailored proposal.",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formSubject": "Subject",
+    "formMessage": "Describe your project...",
+    "successMessage": "Thanks! Your message has been sent.",
+    "errorMessage": "Something went wrong, please try again."
   },
   "footer": {
-    "text": "© 2026 OPS CORPORATION. All rights reserved.",
-    "tagline": "Infra · Security · Web Applications"
+    "copyright": "© {year} OPS CORPORATION. All rights reserved."
   }
 }

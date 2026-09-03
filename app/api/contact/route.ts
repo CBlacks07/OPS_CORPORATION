@@ -1,4 +1,5 @@
 import {NextResponse} from 'next/server';
+import {prisma} from '@/lib/prisma';
 
 type ContactPayload = {
   name?: string;
@@ -17,10 +18,6 @@ export async function POST(req: Request) {
   const subject = (data.subject || '').toString().trim();
   const message = (data.message || '').toString().trim();
 
-  if (!process.env.RESEND_API_KEY) {
-    return NextResponse.json({ok: false, error: 'RESEND_API_KEY missing'}, {status: 500});
-  }
-
   if (!name || !email || !message) {
     return NextResponse.json({ok: false, error: 'Missing fields'}, {status: 400});
   }
@@ -30,32 +27,37 @@ export async function POST(req: Request) {
     return NextResponse.json({ok: false, error: 'Invalid email'}, {status: 400});
   }
 
-  const mailSubject = subject ? `[Portfolio] ${subject}` : '[Portfolio] Nouveau message';
-  const text = [
-    `Nom: ${name}`,
-    `Email: ${email}`,
-    '',
-    message
-  ].join('\n');
-
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`
-    },
-    body: JSON.stringify({
-      from: CONTACT_FROM,
-      to: CONTACT_TO,
-      reply_to: email,
-      subject: mailSubject,
-      text
-    })
+  // Le message est toujours enregistré en base (consultable dans /admin/messages),
+  // même si l'envoi d'email ci-dessous échoue ou n'est pas configuré.
+  await prisma.contactSubmission.create({
+    data: {name, email, subject: subject || null, message}
   });
 
-  if (!res.ok) {
-    const err = await res.text();
-    return NextResponse.json({ok: false, error: err}, {status: 502});
+  if (process.env.RESEND_API_KEY) {
+    const mailSubject = subject ? `[OPS CORPORATION] ${subject}` : '[OPS CORPORATION] Nouveau message';
+    const text = [`Nom: ${name}`, `Email: ${email}`, '', message].join('\n');
+
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`
+        },
+        body: JSON.stringify({
+          from: CONTACT_FROM,
+          to: CONTACT_TO,
+          reply_to: email,
+          subject: mailSubject,
+          text
+        })
+      });
+      if (!res.ok) {
+        console.error('Resend error:', await res.text());
+      }
+    } catch (err) {
+      console.error('Resend request failed:', err);
+    }
   }
 
   return NextResponse.json({ok: true});

@@ -1,0 +1,123 @@
+// OPS CORPORATION — schéma de données du site + back-office admin.
+//
+// Local dev: SQLite (zéro config). Pour la prod (Vercel serverless),
+// basculer `provider` sur "postgresql" et pointer DATABASE_URL vers une
+// base Postgres (ex: Neon), puis relancer `npx prisma migrate deploy`.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now())
+}
+
+/// Ligne unique (id fixe "main") contenant les informations générales de l'entreprise.
+model CompanyInfo {
+  id          String   @id @default("main")
+  name        String   @default("OPS CORPORATION")
+  taglineFr   String
+  taglineEn   String
+  missionFr   String
+  missionEn   String
+  historyFr   String
+  historyEn   String
+  valuesFr    String
+  valuesEn    String
+  foundedYear Int
+  email       String
+  phone       String
+  address     String
+  linkedin    String?
+  facebook    String?
+  instagram   String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Stat {
+  id      String @id @default(cuid())
+  value   String
+  labelFr String
+  labelEn String
+  order   Int    @default(0)
+}
+
+model TeamMember {
+  id       String  @id @default(cuid())
+  name     String
+  roleFr   String
+  roleEn   String
+  bioFr    String
+  bioEn    String
+  photoUrl String?
+  linkedin String?
+  order    Int     @default(0)
+  active   Boolean @default(true)
+}
+
+model Service {
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  icon     String  @default("Server")
+  titleFr  String
+  titleEn  String
+  descFr   String
+  descEn   String
+  /// JSON: [{ "fr": "...", "en": "..." }, ...]
+  features String  @default("[]")
+  order    Int     @default(0)
+  active   Boolean @default(true)
+}
+
+model Sector {
+  id      String  @id @default(cuid())
+  icon    String  @default("Store")
+  titleFr String
+  titleEn String
+  descFr  String
+  descEn  String
+  order   Int     @default(0)
+  active  Boolean @default(true)
+}
+
+model Project {
+  id            String  @id @default(cuid())
+  slug          String  @unique
+  clientName    String
+  url           String?
+  tagFr         String
+  tagEn         String
+  titleFr       String
+  titleEn       String
+  descFr        String
+  descEn        String
+  /// JSON: ["Next.js", "Node", ...]
+  stack         String  @default("[]")
+  coverImageUrl String?
+  order         Int     @default(0)
+  featured      Boolean @default(false)
+  active        Boolean @default(true)
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}

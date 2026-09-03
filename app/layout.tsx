@@ -17,28 +17,28 @@ const space = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'OPS CORPORATION',
-  description: 'OPS CORPORATION — Infra, Sécurité, Applications web sur mesure.',
+  title: 'OPS CORPORATION — Lomé, Togo',
+  description: "Infrastructure, sécurité, applications web & mobiles sur mesure. OPS CORPORATION accompagne entreprises, écoles, cliniques et institutions à Lomé, Togo.",
   icons: {
     icon: '/ops-logo.png',
     apple: '/ops-logo.png',
   },
   openGraph: {
-    title: 'OPS CORPORATION - Portfolio',
-    description: 'Infra - Sécurité - Applications web',
+    title: 'OPS CORPORATION — Lomé, Togo',
+    description: 'Infra · Sécurité · Applications web & mobiles',
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OPS CORPORATION - Portfolio',
-    description: 'Infra - Sécurité - Applications web'
+    title: 'OPS CORPORATION — Lomé, Togo',
+    description: 'Infra · Sécurité · Applications web & mobiles'
   }
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning className={`${plex.variable} ${space.variable}`}>
-      <body className="min-h-screen bg-[#0B1220] text-slate-100">{children}</body>
+      <body className="min-h-screen bg-white text-slate-900">{children}</body>
     </html>
   )
 }
