@@ -122,3 +122,24 @@ model ContactSubmission {
   createdAt DateTime @default(now())
   read      Boolean  @default(false)
 }
+
+/// Image de couverture d'une section du site (id = clé fixe, voir lib/sections.ts).
+/// Une ligne par section connue ; imageUrl vide = pas d'image, la section garde
+/// son rendu par défaut (sans bandeau photo).
+model SectionCover {
+  id        String   @id
+  imageUrl  String?
+  updatedAt DateTime @updatedAt
+}
+
+/// Tentatives de connexion admin, pour limiter le brute-force sur /admin/login.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ip        String
+  success   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ip, createdAt])
+}

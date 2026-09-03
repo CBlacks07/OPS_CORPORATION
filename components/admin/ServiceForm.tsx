@@ -1,6 +1,7 @@
 import { saveService, deleteService } from '@/app/admin/(dashboard)/services/actions';
 import { ICON_KEYS } from '@/lib/icons';
 import Link from 'next/link';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 type Feature = { fr: string; en: string };
 
@@ -105,9 +106,12 @@ export default function ServiceForm({ service }: { service: Service }) {
           </Link>
         </div>
         {service && (
-          <button type="submit" formAction={deleteService} className="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-            Supprimer
-          </button>
+          <ConfirmSubmitButton
+            action={deleteService}
+            message={`Supprimer le service "${service.titleFr}" ? Cette action est définitive.`}
+            triggerLabel="Supprimer"
+            triggerClassName="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+          />
         )}
       </div>
     </form>

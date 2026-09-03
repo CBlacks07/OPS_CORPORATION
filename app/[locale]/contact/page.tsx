@@ -5,17 +5,35 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ContactForm from '@/components/forms/ContactForm';
 import { getNav } from '@/lib/nav';
-import { getCompanyInfo } from '@/lib/content';
+import { getCompanyInfo, getSectionCovers } from '@/lib/content';
+import CoverImage from '@/components/cover/CoverImage';
+import { buildMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const [t, company] = await Promise.all([
+    getTranslations({ locale, namespace: 'contact' }),
+    getCompanyInfo(locale as 'fr' | 'en')
+  ]);
+  return buildMetadata({
+    locale,
+    path: '/contact',
+    title: `${t('title')} — ${company?.name || 'OPS CORPORATION'}`,
+    description: t('pitch')
+  });
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isFr = locale === 'fr';
-  const [t, tCta, tFooter, nav, company] = await Promise.all([
+  const [t, tCta, tFooter, nav, company, covers] = await Promise.all([
     getTranslations({ locale, namespace: 'contact' }),
     getTranslations({ locale, namespace: 'cta' }),
     getTranslations({ locale, namespace: 'footer' }),
     getNav(locale),
-    getCompanyInfo(locale as 'fr' | 'en')
+    getCompanyInfo(locale as 'fr' | 'en'),
+    getSectionCovers()
   ]);
 
   const container = 'mx-auto w-full max-w-screen-xl px-6 md:px-10';
@@ -24,13 +42,21 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
     <div className="min-h-screen">
       <Header locale={locale} switchHref={isFr ? '/en' : '/fr'} nav={nav} contactLabel={tCta('contact')} />
 
+      <section className="relative bg-[#0b1220] text-white overflow-hidden">
+        <CoverImage url={covers.contact_page} />
+        <div className={`${container} py-20`}>
+          <Reveal>
+            <div className="section-label">{t('label')}</div>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-2 leading-[1.1]">{t('title')}</h1>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="py-20">
         <div className={container}>
           <Reveal>
             <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-start">
               <div>
-                <div className="section-label">{t('label')}</div>
-                <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">{t('title')}</h1>
                 <p className="text-slate-600 text-base leading-relaxed mb-10">{t('pitch')}</p>
 
                 {company && (

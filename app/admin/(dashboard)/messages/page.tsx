@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { markMessageRead, deleteMessage } from './actions';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 export default async function MessagesPage() {
   const messages = await prisma.contactSubmission.findMany({ orderBy: { createdAt: 'desc' } });
@@ -43,9 +44,12 @@ export default async function MessagesPage() {
                 )}
                 <form action={deleteMessage}>
                   <input type="hidden" name="id" value={m.id} />
-                  <button type="submit" className="text-xs px-3 py-1.5 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-                    Supprimer
-                  </button>
+                  <ConfirmSubmitButton
+                    action={deleteMessage}
+                    message={`Supprimer le message de ${m.name} ? Cette action est définitive.`}
+                    triggerLabel="Supprimer"
+                    triggerClassName="text-xs px-3 py-1.5 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+                  />
                 </form>
               </div>
             </div>

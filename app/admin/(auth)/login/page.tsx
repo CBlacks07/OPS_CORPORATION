@@ -12,11 +12,17 @@ async function loginAction(formData: FormData) {
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect('/admin/login?error=1');
+      const code = (error as AuthError & { code?: string }).code || 'default';
+      redirect(`/admin/login?error=${code}`);
     }
     throw error;
   }
 }
+
+const ERROR_MESSAGES: Record<string, string> = {
+  too_many_attempts: 'Trop de tentatives échouées. Réessayez dans quelques minutes.',
+  default: 'Identifiants incorrects. Réessayez.'
+};
 
 export default async function LoginPage({
   searchParams
@@ -36,7 +42,7 @@ export default async function LoginPage({
       <form action={loginAction} className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-xl">
         {error && (
           <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-            Identifiants incorrects. Réessayez.
+            {ERROR_MESSAGES[error] || ERROR_MESSAGES.default}
           </p>
         )}
         <div>

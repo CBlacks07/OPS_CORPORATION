@@ -1,5 +1,7 @@
 import { saveProject, deleteProject } from '@/app/admin/(dashboard)/projects/actions';
 import Link from 'next/link';
+import ImageField from '@/components/admin/ImageField';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 type Project = {
   id: string;
@@ -51,10 +53,7 @@ export default function ProjectForm({ project }: { project: Project }) {
           <label className="block text-xs font-semibold text-slate-600 mb-1.5">Site en ligne (URL)</label>
           <input name="url" defaultValue={project?.url || ''} placeholder="https://..." className="form-input" />
         </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1.5">Image de couverture (URL)</label>
-          <input name="coverImageUrl" defaultValue={project?.coverImageUrl || ''} placeholder="https://..." className="form-input" />
-        </div>
+        <ImageField name="coverImageUrl" defaultValue={project?.coverImageUrl} label="Image de couverture" />
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -120,9 +119,12 @@ export default function ProjectForm({ project }: { project: Project }) {
           </Link>
         </div>
         {project && (
-          <button type="submit" formAction={deleteProject} className="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-            Supprimer
-          </button>
+          <ConfirmSubmitButton
+            action={deleteProject}
+            message={`Supprimer la réalisation "${project.titleFr}" ? Cette action est définitive.`}
+            triggerLabel="Supprimer"
+            triggerClassName="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+          />
         )}
       </div>
     </form>

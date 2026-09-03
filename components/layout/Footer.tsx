@@ -83,9 +83,16 @@ export default function Footer({
           )}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>{copyright}</p>
-          <p>OPS CORPORATION · {locale === 'fr' ? 'Lomé, Togo' : 'Lomé, Togo'}</p>
+          <div className="flex items-center gap-5">
+            <Link href={`/${locale}/mentions-legales`} className="hover:text-white transition-colors">
+              {locale === 'fr' ? 'Mentions légales' : 'Legal notice'}
+            </Link>
+            <Link href={`/${locale}/confidentialite`} className="hover:text-white transition-colors">
+              {locale === 'fr' ? 'Confidentialité' : 'Privacy policy'}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

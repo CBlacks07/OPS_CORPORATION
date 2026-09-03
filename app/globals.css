@@ -160,3 +160,20 @@ h1, h2, h3, h4, h5, h6, .font-display {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
 }
+
+/* Images de couverture de section (Ken Burns discret) */
+@keyframes cover-kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.cover-kenburns {
+  animation: cover-kenburns 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-kenburns {
+    animation: none;
+  }
+}

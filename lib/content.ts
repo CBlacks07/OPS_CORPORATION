@@ -72,6 +72,13 @@ export async function getSectors(locale: Locale) {
   }));
 }
 
+export async function getSectionCovers(): Promise<Record<string, string | null>> {
+  const rows = await prisma.sectionCover.findMany();
+  const map: Record<string, string | null> = {};
+  for (const r of rows) map[r.id] = r.imageUrl;
+  return map;
+}
+
 export async function getProjects(locale: Locale, opts: { onlyFeatured?: boolean; limit?: number } = {}) {
   const rows = await prisma.project.findMany({
     where: { active: true, ...(opts.onlyFeatured ? { featured: true } : {}) },

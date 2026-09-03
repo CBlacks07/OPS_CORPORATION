@@ -1,6 +1,7 @@
 import { saveSector, deleteSector } from '@/app/admin/(dashboard)/sectors/actions';
 import { ICON_KEYS } from '@/lib/icons';
 import Link from 'next/link';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 type Sector = {
   id: string;
@@ -72,9 +73,12 @@ export default function SectorForm({ sector }: { sector: Sector }) {
           </Link>
         </div>
         {sector && (
-          <button type="submit" formAction={deleteSector} className="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-            Supprimer
-          </button>
+          <ConfirmSubmitButton
+            action={deleteSector}
+            message={`Supprimer le secteur "${sector.titleFr}" ? Cette action est définitive.`}
+            triggerLabel="Supprimer"
+            triggerClassName="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+          />
         )}
       </div>
     </form>

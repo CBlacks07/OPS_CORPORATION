@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans, Space_Grotesk } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const plex = IBM_Plex_Sans({
@@ -38,7 +40,11 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html suppressHydrationWarning className={`${plex.variable} ${space.variable}`}>
-      <body className="min-h-screen bg-white text-slate-900">{children}</body>
+      <body className="min-h-screen bg-white text-slate-900">
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   )
 }

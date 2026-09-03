@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { updateCompanyInfo, saveStat, deleteStat } from './actions';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 export default async function CompanyPage() {
   const [company, stats] = await Promise.all([
@@ -122,9 +123,12 @@ export default async function CompanyPage() {
                 <button type="submit" className="btn-outline text-xs px-3 py-2">
                   Enregistrer
                 </button>
-                <button type="submit" formAction={deleteStat} className="text-xs px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-                  Suppr.
-                </button>
+                <ConfirmSubmitButton
+                  action={deleteStat}
+                  message={`Supprimer la statistique "${s.labelFr}" ?`}
+                  triggerLabel="Suppr."
+                  triggerClassName="text-xs px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+                />
               </div>
             </form>
           ))}

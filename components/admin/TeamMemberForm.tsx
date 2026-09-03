@@ -1,5 +1,7 @@
 import { saveTeamMember, deleteTeamMember } from '@/app/admin/(dashboard)/team/actions';
 import Link from 'next/link';
+import ImageField from '@/components/admin/ImageField';
+import ConfirmSubmitButton from '@/components/admin/ConfirmSubmitButton';
 
 type Member = {
   id: string;
@@ -47,10 +49,7 @@ export default function TeamMemberForm({ member }: { member: Member }) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1.5">Photo (URL)</label>
-          <input name="photoUrl" defaultValue={member?.photoUrl || ''} placeholder="https://..." className="form-input" />
-        </div>
+        <ImageField name="photoUrl" defaultValue={member?.photoUrl} label="Photo" />
         <div>
           <label className="block text-xs font-semibold text-slate-600 mb-1.5">LinkedIn (URL)</label>
           <input name="linkedin" defaultValue={member?.linkedin || ''} placeholder="https://linkedin.com/..." className="form-input" />
@@ -78,9 +77,12 @@ export default function TeamMemberForm({ member }: { member: Member }) {
           </Link>
         </div>
         {member && (
-          <button type="submit" formAction={deleteTeamMember} className="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50">
-            Supprimer
-          </button>
+          <ConfirmSubmitButton
+            action={deleteTeamMember}
+            message={`Supprimer ${member.name} de l'équipe ? Cette action est définitive.`}
+            triggerLabel="Supprimer"
+            triggerClassName="text-sm px-3 py-2 rounded-lg text-red-600 border border-red-200 hover:bg-red-50"
+          />
         )}
       </div>
     </form>

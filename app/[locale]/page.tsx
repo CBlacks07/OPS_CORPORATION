@@ -5,13 +5,28 @@ import Reveal from '@/components/motion/Reveal';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getNav } from '@/lib/nav';
-import { getCompanyInfo, getStats, getServices, getSectors, getProjects } from '@/lib/content';
+import { getCompanyInfo, getStats, getServices, getSectors, getProjects, getSectionCovers } from '@/lib/content';
 import { getIcon } from '@/lib/icons';
+import CoverImage from '@/components/cover/CoverImage';
+import CoverStrip from '@/components/cover/CoverStrip';
+import { buildMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const company = await getCompanyInfo(locale as 'fr' | 'en');
+  return buildMetadata({
+    locale,
+    path: '',
+    title: `${company?.name || 'OPS CORPORATION'} — ${company?.tagline || ''}`,
+    description: company?.mission || ''
+  });
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isFr = locale === 'fr';
-  const [t, tHome, tWhyUs, tCta, tFooter, nav, company, stats, services, sectors, projects] = await Promise.all([
+  const [t, tHome, tWhyUs, tCta, tFooter, nav, company, stats, services, sectors, projects, covers] = await Promise.all([
     getTranslations({ locale, namespace: 'hero' }),
     getTranslations({ locale, namespace: 'home' }),
     getTranslations({ locale, namespace: 'whyus' }),
@@ -22,7 +37,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     getStats(locale as 'fr' | 'en'),
     getServices(locale as 'fr' | 'en'),
     getSectors(locale as 'fr' | 'en'),
-    getProjects(locale as 'fr' | 'en', { limit: 3 })
+    getProjects(locale as 'fr' | 'en', { limit: 3 }),
+    getSectionCovers()
   ]);
 
   const container = 'mx-auto w-full max-w-screen-xl px-6 md:px-10';
@@ -34,6 +50,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── HERO ── */}
       <section className="relative bg-[#0b1220] text-white overflow-hidden">
+        <CoverImage url={covers.hero} />
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none" />
         <div className={`${container} relative py-24 md:py-32`}>
           <Reveal>
@@ -80,6 +97,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── SERVICES ── */}
       <section className="py-24">
         <div className={container}>
+          <CoverStrip url={covers.services_home} />
           <Reveal>
             <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
               <div>
@@ -126,6 +144,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── SECTEURS ── */}
       <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className={container}>
+          <CoverStrip url={covers.sectors_home} />
           <Reveal>
             <div className="section-label">{tHome('sectorsLabel')}</div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12 leading-[1.15]">
@@ -154,6 +173,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── POURQUOI NOUS ── */}
       <section className="py-24">
         <div className={container}>
+          <CoverStrip url={covers.whyus_home} />
           <Reveal>
             <div className="section-label">{tHome('whyusLabel')}</div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12 leading-[1.15]">
@@ -177,6 +197,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {projects.length > 0 && (
         <section className="py-24 bg-slate-50 border-y border-slate-100">
           <div className={container}>
+            <CoverStrip url={covers.projects_home} />
             <Reveal>
               <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
                 <div>
@@ -191,17 +212,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {projects.map((p, i) => (
                 <Reveal key={p.id} delay={i * 0.07}>
-                  <div className="card bg-white p-6 h-full flex flex-col">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full border border-cyan-200 bg-cyan-50 text-cyan-700 w-fit">
-                      {p.tag}
-                    </span>
-                    <h4 className="mt-4 text-lg font-bold text-slate-900 leading-snug">{p.title}</h4>
-                    <p className="mt-2 text-sm text-slate-600 leading-relaxed flex-1">{p.desc}</p>
-                    {p.url && (
-                      <a href={p.url} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-700 hover:text-cyan-800">
-                        {tCta('viewSite')} <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
+                  <div className="card bg-white overflow-hidden h-full flex flex-col">
+                    {p.coverImageUrl && (
+                      <div className="h-36 overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={p.coverImageUrl} alt={p.title} className="w-full h-full object-cover" />
+                      </div>
                     )}
+                    <div className="p-6 flex flex-col flex-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full border border-cyan-200 bg-cyan-50 text-cyan-700 w-fit">
+                        {p.tag}
+                      </span>
+                      <h4 className="mt-4 text-lg font-bold text-slate-900 leading-snug">{p.title}</h4>
+                      <p className="mt-2 text-sm text-slate-600 leading-relaxed flex-1">{p.desc}</p>
+                      {p.url && (
+                        <a href={p.url} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-700 hover:text-cyan-800">
+                          {tCta('viewSite')} <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </Reveal>
               ))}
@@ -214,7 +243,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="py-24">
         <div className={container}>
           <Reveal>
-            <div className="card bg-[#0b1220] border-0 text-white p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="relative overflow-hidden card bg-[#0b1220] border-0 text-white p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+              <CoverImage url={covers.contact_cta_home} />
               <div>
                 <div className="section-label">{tHome('contactLabel')}</div>
                 <h2 className="text-2xl md:text-3xl font-extrabold mb-3">{tHome('contactHeadline')}</h2>

@@ -7,6 +7,7 @@
  */
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { SECTION_COVERS } from '../lib/sections';
 
 const prisma = new PrismaClient();
 
@@ -312,6 +313,11 @@ async function main() {
   ];
   for (const p of projects) {
     await prisma.project.upsert({ where: { slug: p.slug }, update: p, create: p });
+  }
+
+  // ── Images de couverture (vides par défaut, à renseigner via /admin/covers) ──
+  for (const s of SECTION_COVERS) {
+    await prisma.sectionCover.upsert({ where: { id: s.key }, update: {}, create: { id: s.key, imageUrl: null } });
   }
 
   console.log('✅ Seed terminé.');

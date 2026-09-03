@@ -5,19 +5,37 @@ import Reveal from '@/components/motion/Reveal';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getNav } from '@/lib/nav';
-import { getCompanyInfo, getServices } from '@/lib/content';
+import { getCompanyInfo, getServices, getSectionCovers } from '@/lib/content';
 import { getIcon } from '@/lib/icons';
+import CoverImage from '@/components/cover/CoverImage';
+import { buildMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const [t, company] = await Promise.all([
+    getTranslations({ locale, namespace: 'services' }),
+    getCompanyInfo(locale as 'fr' | 'en')
+  ]);
+  return buildMetadata({
+    locale,
+    path: '/services',
+    title: `${t('headline1')} ${t('headline2')} — ${company?.name || 'OPS CORPORATION'}`,
+    description: t('pitch')
+  });
+}
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isFr = locale === 'fr';
-  const [t, tCta, tFooter, nav, company, services] = await Promise.all([
+  const [t, tCta, tFooter, nav, company, services, covers] = await Promise.all([
     getTranslations({ locale, namespace: 'services' }),
     getTranslations({ locale, namespace: 'cta' }),
     getTranslations({ locale, namespace: 'footer' }),
     getNav(locale),
     getCompanyInfo(locale as 'fr' | 'en'),
-    getServices(locale as 'fr' | 'en')
+    getServices(locale as 'fr' | 'en'),
+    getSectionCovers()
   ]);
 
   const container = 'mx-auto w-full max-w-screen-xl px-6 md:px-10';
@@ -26,7 +44,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
     <div className="min-h-screen">
       <Header locale={locale} switchHref={isFr ? '/en' : '/fr'} nav={nav} contactLabel={tCta('contact')} />
 
-      <section className="bg-[#0b1220] text-white">
+      <section className="relative bg-[#0b1220] text-white overflow-hidden">
+        <CoverImage url={covers.services_page} />
         <div className={`${container} py-20`}>
           <Reveal>
             <div className="section-label">{t('label')}</div>
