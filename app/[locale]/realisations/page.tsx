@@ -44,7 +44,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
 
       <section className="relative bg-[#0b1220] text-white overflow-hidden">
         <CoverImage url={covers.projects_page} />
-        <div className={`${container} py-20`}>
+        <div className={`${container} relative py-20`}>
           <Reveal>
             <div className="section-label">{t('label')}</div>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-[1.1]">

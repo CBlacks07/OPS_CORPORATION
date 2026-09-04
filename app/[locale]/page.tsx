@@ -243,14 +243,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="py-24">
         <div className={container}>
           <Reveal>
-            <div className="relative overflow-hidden card bg-[#0b1220] border-0 text-white p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="relative overflow-hidden rounded-2xl bg-[#0b1220] text-white p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <CoverImage url={covers.contact_cta_home} />
-              <div>
+              <div className="relative">
                 <div className="section-label">{tHome('contactLabel')}</div>
                 <h2 className="text-2xl md:text-3xl font-extrabold mb-3">{tHome('contactHeadline')}</h2>
                 <p className="text-slate-300 max-w-lg">{tHome('contactPitch')}</p>
               </div>
-              <div className="flex flex-col gap-3 shrink-0">
+              <div className="relative flex flex-col gap-3 shrink-0">
                 <Link href={`/${locale}/contact`} className="btn-primary">
                   <Mail className="w-4 h-4" /> {tCta('contact')}
                 </Link>
