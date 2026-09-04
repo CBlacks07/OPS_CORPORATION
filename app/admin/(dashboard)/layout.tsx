@@ -1,6 +1,8 @@
 import { auth, signOut } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
+import AdminToast from '@/components/admin/AdminToast';
+import { withFlash } from '@/lib/adminFlash';
 
 export const metadata = { title: 'Administration — OPS CORPORATION' };
 
@@ -24,7 +26,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <form
               action={async () => {
                 'use server';
-                await signOut({ redirectTo: '/admin/login' });
+                await signOut({ redirectTo: withFlash('/admin/login', 'Déconnexion réussie.', 'success') });
               }}
             >
               <button type="submit" className="btn-outline-dark text-xs px-3 py-1.5">
@@ -37,6 +39,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </header>
 
       <main className="max-w-screen-xl mx-auto px-6 py-10">{children}</main>
+      <AdminToast />
     </div>
   );
 }

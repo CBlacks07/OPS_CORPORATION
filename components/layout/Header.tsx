@@ -2,12 +2,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Languages, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useLockBodyScroll from '@/components/hooks/useLockBodyScroll';
 import Burger from '@/components/ui/Burger';
 
 type NavItem = { href: string; label: string };
+
+const HIDE_THRESHOLD = 80; // px avant de commencer à masquer le nav au défilement
 
 export default function Header({
   locale,
@@ -21,14 +23,54 @@ export default function Header({
   contactLabel: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
   useLockBodyScroll(open);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    function onScroll() {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setScrolled(y > 10);
+
+        if (open) {
+          // Menu mobile ouvert : on garde le nav visible
+          setHidden(false);
+        } else if (y <= HIDE_THRESHOLD) {
+          setHidden(false);
+        } else if (y > lastScrollY.current) {
+          setHidden(true); // défilement vers le bas
+        } else if (y < lastScrollY.current) {
+          setHidden(false); // défilement vers le haut
+        }
+
+        lastScrollY.current = y;
+        ticking.current = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [open]);
 
   const isActive = (href: string) => pathname === href || (href !== `/${locale}` && pathname?.startsWith(href));
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <motion.header
+        animate={{ y: hidden ? '-100%' : '0%' }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className={`sticky top-0 z-30 border-b bg-white/95 backdrop-blur transition-shadow duration-300 ${
+          scrolled ? 'border-slate-200 shadow-sm' : 'border-transparent'
+        }`}
+      >
         <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-4">
           <Link href={`/${locale}`} className="flex items-center gap-3">
             <img src="/ops-logo.png" alt="OPS CORPORATION" className="h-8 w-8 object-contain" />
@@ -74,7 +116,7 @@ export default function Header({
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* ── Mobile menu ── */}
       <AnimatePresence>

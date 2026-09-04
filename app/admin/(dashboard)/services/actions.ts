@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { withFlash } from '@/lib/adminFlash';
 
 const schema = z.object({
   id: z.string().optional(),
@@ -55,13 +56,14 @@ export async function saveService(formData: FormData) {
     active: parsed.active
   };
 
+  const isNew = !parsed.id;
   if (parsed.id) {
     await prisma.service.update({ where: { id: parsed.id }, data });
   } else {
     await prisma.service.create({ data });
   }
   revalidateAllLocales();
-  redirect('/admin/services');
+  redirect(withFlash('/admin/services', isNew ? 'Service ajouté.' : 'Service mis à jour.'));
 }
 
 export async function deleteService(formData: FormData) {
@@ -69,5 +71,5 @@ export async function deleteService(formData: FormData) {
   if (!id) return;
   await prisma.service.delete({ where: { id } });
   revalidateAllLocales();
-  redirect('/admin/services');
+  redirect(withFlash('/admin/services', 'Service supprimé.'));
 }

@@ -2,8 +2,10 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { SECTION_COVERS } from '@/lib/sections';
+import { withFlash } from '@/lib/adminFlash';
 
 const schema = z.object({
   key: z.enum(SECTION_COVERS.map((s) => s.key) as [string, ...string[]]),
@@ -30,4 +32,6 @@ export async function saveCover(formData: FormData) {
   revalidatePath('/en/realisations');
   revalidatePath('/fr/contact');
   revalidatePath('/en/contact');
+
+  redirect(withFlash('/admin/covers', parsed.imageUrl ? 'Image de couverture mise à jour.' : 'Image de couverture retirée.'));
 }

@@ -2,7 +2,9 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { withFlash } from '@/lib/adminFlash';
 
 const companySchema = z.object({
   name: z.string().min(1),
@@ -54,6 +56,7 @@ export async function updateCompanyInfo(formData: FormData) {
   });
 
   revalidateAllLocales();
+  redirect(withFlash('/admin/company', 'Informations entreprise enregistrées.'));
 }
 
 const statSchema = z.object({
@@ -68,12 +71,14 @@ export async function saveStat(formData: FormData) {
   const raw = Object.fromEntries(formData.entries());
   const parsed = statSchema.parse(raw);
 
+  const isNew = !parsed.id;
   if (parsed.id) {
     await prisma.stat.update({ where: { id: parsed.id }, data: parsed });
   } else {
     await prisma.stat.create({ data: parsed });
   }
   revalidateAllLocales();
+  redirect(withFlash('/admin/company', isNew ? 'Statistique ajoutée.' : 'Statistique enregistrée.'));
 }
 
 export async function deleteStat(formData: FormData) {
@@ -81,4 +86,5 @@ export async function deleteStat(formData: FormData) {
   if (!id) return;
   await prisma.stat.delete({ where: { id } });
   revalidateAllLocales();
+  redirect(withFlash('/admin/company', 'Statistique supprimée.'));
 }

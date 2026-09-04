@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { withFlash } from '@/lib/adminFlash';
 
 const schema = z.object({
   id: z.string().optional(),
@@ -30,13 +31,14 @@ export async function saveTeamMember(formData: FormData) {
   const parsed = schema.parse({ ...raw, active: formData.get('active') === 'on' });
   const data = { ...parsed, photoUrl: parsed.photoUrl || null, linkedin: parsed.linkedin || null };
 
+  const isNew = !parsed.id;
   if (parsed.id) {
     await prisma.teamMember.update({ where: { id: parsed.id }, data });
   } else {
     await prisma.teamMember.create({ data });
   }
   revalidateAllLocales();
-  redirect('/admin/team');
+  redirect(withFlash('/admin/team', isNew ? 'Membre ajouté.' : 'Membre mis à jour.'));
 }
 
 export async function deleteTeamMember(formData: FormData) {
@@ -44,5 +46,5 @@ export async function deleteTeamMember(formData: FormData) {
   if (!id) return;
   await prisma.teamMember.delete({ where: { id } });
   revalidateAllLocales();
-  redirect('/admin/team');
+  redirect(withFlash('/admin/team', 'Membre supprimé.'));
 }

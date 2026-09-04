@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { withFlash } from '@/lib/adminFlash';
 
 const schema = z.object({
   id: z.string().optional(),
@@ -25,13 +26,14 @@ export async function saveSector(formData: FormData) {
   const raw = Object.fromEntries(formData.entries());
   const parsed = schema.parse({ ...raw, active: formData.get('active') === 'on' });
 
+  const isNew = !parsed.id;
   if (parsed.id) {
     await prisma.sector.update({ where: { id: parsed.id }, data: parsed });
   } else {
     await prisma.sector.create({ data: parsed });
   }
   revalidateAllLocales();
-  redirect('/admin/sectors');
+  redirect(withFlash('/admin/sectors', isNew ? 'Secteur ajouté.' : 'Secteur mis à jour.'));
 }
 
 export async function deleteSector(formData: FormData) {
@@ -39,5 +41,5 @@ export async function deleteSector(formData: FormData) {
   if (!id) return;
   await prisma.sector.delete({ where: { id } });
   revalidateAllLocales();
-  redirect('/admin/sectors');
+  redirect(withFlash('/admin/sectors', 'Secteur supprimé.'));
 }

@@ -1,6 +1,8 @@
 import { signIn } from '@/lib/auth';
 import { AuthError } from 'next-auth';
 import { redirect } from 'next/navigation';
+import { CheckCircle2 } from 'lucide-react';
+import { withFlash } from '@/lib/adminFlash';
 
 async function loginAction(formData: FormData) {
   'use server';
@@ -8,7 +10,7 @@ async function loginAction(formData: FormData) {
     await signIn('credentials', {
       email: formData.get('email'),
       password: formData.get('password'),
-      redirectTo: '/admin'
+      redirectTo: withFlash('/admin', 'Connexion réussie.', 'success')
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -27,9 +29,9 @@ const ERROR_MESSAGES: Record<string, string> = {
 export default async function LoginPage({
   searchParams
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; flash?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, flash } = await searchParams;
 
   return (
     <div>
@@ -40,6 +42,11 @@ export default async function LoginPage({
       </div>
 
       <form action={loginAction} className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-xl">
+        {flash && !error && (
+          <p className="flex items-center gap-2 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+            <CheckCircle2 className="w-4 h-4 shrink-0" /> {flash}
+          </p>
+        )}
         {error && (
           <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
             {ERROR_MESSAGES[error] || ERROR_MESSAGES.default}

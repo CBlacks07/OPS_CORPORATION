@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { withFlash } from '@/lib/adminFlash';
 
 const schema = z.object({
   id: z.string().optional(),
@@ -63,13 +64,14 @@ export async function saveProject(formData: FormData) {
     active: parsed.active
   };
 
+  const isNew = !parsed.id;
   if (parsed.id) {
     await prisma.project.update({ where: { id: parsed.id }, data });
   } else {
     await prisma.project.create({ data });
   }
   revalidateAllLocales();
-  redirect('/admin/projects');
+  redirect(withFlash('/admin/projects', isNew ? 'Réalisation ajoutée.' : 'Réalisation mise à jour.'));
 }
 
 export async function deleteProject(formData: FormData) {
@@ -77,5 +79,5 @@ export async function deleteProject(formData: FormData) {
   if (!id) return;
   await prisma.project.delete({ where: { id } });
   revalidateAllLocales();
-  redirect('/admin/projects');
+  redirect(withFlash('/admin/projects', 'Réalisation supprimée.'));
 }
